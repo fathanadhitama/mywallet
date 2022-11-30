@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyWallet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <h1>MyWallet</h1>
+        <div class="option">
+            <a href="#home">Home</a>
+            <a href="#">About</a>
+            <a href="#main">Start</a>
+        </div>
+    </div>
+    <!-- navbar end -->
+    <!-- container -->
+    <div class="container">
+        <!-- home page -->
+        <div class="home" id="home">
+            <img src="img/wallet (1).png" alt="logo">
+            <div class="desc">
+                <h1>MyWallet</h1>
+                <h2>Your best financial planner</h2>
+            </div>
+        </div>
+        <!-- home page end -->
+        <!-- content -->
+        <div class="content" id="main">
+            <h1>Input your spending today!</h1>
+            <div class="box">
+                <!-- form input -->
+                <div class="wrapper">
+                    <form id="myForm">
+                        <label for="jenis">Jenis</label><br>
+                        <select class="select" name="jenis" id="jenis">
+                            <option value="pemasukan">Pemasukan</option>
+                            <option value="pengeluaran">Pengeluaran</option>
+                        </select><br>
+                        <label for="kategori">Kategori</label><br>
+                        <select class="select" name="name" id="name">
+                            <option value="pendidikan">Pendidikan</option>
+                            <option value="transportasi">Transportasi</option>
+                            <option value="konsumsi">Konsumsi</option> 
+                            <option value="healing">Healing</option> 
+                            <option value="lainnya">Lainnya</option> 
+                        </select><br>
+                        <label for="keterangan">Keterangan</label><br>
+                        <input type="text" name="description" id="description"><br>
+                        <label for="jumlah">Jumlah</label><br>
+                        <input type="number" name="nominal" id="nominal"><br>
+                        <input type="submit" id="submit" value="Simpan">
+                    </form>
+                </div> 
+                <!-- form input end -->
+                <!-- catatan -->
+                <div class="history" id="history">
+                    <h2>Spending History</h2>
+                    <div class="item">
+                        <div class="data">
+                            <p>[Pengeluaran] Transportasi</p>
+                            <p>Gojek</p>
+                            <p> <span style="color: blue;">Rp15000</span></p>
+                        </div>
+                        <div class="tools">
+                            <ul>
+                                <li> Edit </li>
+                                <li id="del"> Delete </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- catatan end -->
+            </div>
+        </div>
+    </div>
+
+    <!-- api -->
+    <!-- <script src="script.js"></script> -->
+    <script>
+        
+        const myForm = document.querySelector("#myForm");
+        myForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const payload = new FormData(myForm);
+            const data = new URLSearchParams(payload);
+            
+            fetch('http://localhost:8000/items',{
+                method: "POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:data
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+        })
+    </script>
+</body>
+</html>
