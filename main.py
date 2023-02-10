@@ -21,6 +21,7 @@ app.add_middleware(
 )
 
 class Spend(BaseModel): #serializer
+    id:Union[int,None]
     name:str
     description:str
     nominal:int
@@ -30,12 +31,12 @@ class Spend(BaseModel): #serializer
 
 db=SessionLocal()
 
-@app.get('/items',response_model=List[Spend], status_code=200)
+@app.get('/items',response_model=List[Spend], status_code=200) #get all item
 def get_all_items():
     items=db.query(models.Item).all()
     return items
 
-@app.get('/item/{item_id}',response_model=Spend,status_code=status.HTTP_200_OK)
+@app.get('/item/{item_id}',response_model=Spend,status_code=status.HTTP_200_OK) #get an item
 def get_an_item(item_id:int):
     item=db.query(models.Item).filter(models.Item.id==item_id).first()
     if item is None:
@@ -43,7 +44,7 @@ def get_an_item(item_id:int):
     return item
 
 @app.post('/items',response_model=Spend,
-        status_code=status.HTTP_201_CREATED)
+        status_code=status.HTTP_201_CREATED) #create an item
 def create_an_item(item:Spend):
     new_item=models.Item(
         name=item.name,
@@ -55,7 +56,7 @@ def create_an_item(item:Spend):
     db.commit()
     return new_item
 
-@app.put('/item/{item_id}',response_model=Spend,status_code=status.HTTP_200_OK)
+@app.put('/item/{item_id}',response_model=Spend,status_code=status.HTTP_200_OK) #update an item
 def update_an_item(item_id:int,item:Spend):
     item_to_update=db.query(models.Item).filter(models.Item.id==item_id).first()
     item_to_update.name=item.name

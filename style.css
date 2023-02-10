@@ -55,7 +55,7 @@ table {
     font-style: normal;
 }
 
-@media only screen and (max-width:600px){
+@media(max-width:768px){
 
     .box{
         width: 100%;
@@ -65,6 +65,92 @@ table {
         align-items: center;
         box-sizing: border-box;
     }
+
+    nav .hamburger{
+        display: block;
+    }
+
+    nav .hamburger.active .bar:nth-child(2){
+        opacity: 0;
+    }
+
+    nav .hamburger.active .bar:nth-child(1){
+        transform: translateY(13px) rotate(45deg);
+    }
+
+    nav .hamburger.active .bar:nth-child(3){
+        transform: translateY(-13px) rotate(-45deg);
+    }
+
+    .option{
+        position: fixed;
+        top: -100%;
+        gap: 0;
+        flex-direction: column;
+        background-color: #497174;
+        width: 100%;
+        text-align: center;
+        transition: 0.5s;
+    }
+
+    .option li{
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    .option.active{
+        top: 50px;
+    }
+
+    .home{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        font-size: 50px;
+        min-height: 85vh;
+    }
+
+    .desc{
+        text-align: center;
+    }
+
+    body .modal{
+        min-width: 300px;
+        min-height: 150px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -150px; /* Negative half of height. */
+        margin-left: -150px; /* Negative half of width. */
+        background-color: white;
+        border-radius: 10px;
+        z-index: 100;
+        text-align: center;
+        overflow-wrap: normal;
+    }
+
+    body .modal.update{
+        min-width: 300px;
+        min-height: 150px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -300px; /* Negative half of height. */
+        margin-left: -150px; /* Negative half of width. */
+        background-color: white;
+        border-radius: 10px;
+        z-index: 100;
+        text-align: left;
+        overflow-wrap: normal;
+    }
+
+    body .modal h2{
+        margin: 10px auto;
+        width: 200px;
+    }
 }
 
 html{
@@ -72,8 +158,18 @@ html{
 }
 
 :target{
-    scroll-margin-top: 70px;
+    scroll-margin-top: 50px;
 }
+
+.history::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  
+.history::-webkit-scrollbar-thumb {
+    background-color: #fff;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 0px ;  /* creates padding around scroll thumb */
+  }
 
 body{
     font : 18px/36px 'rubikmedium', 'Arial Narrow', sans-serif; 
@@ -90,26 +186,46 @@ body{
     background-color: #497174;
     width: 100%;
     color: #000;
-    z-index: 999;
+    z-index: 2;
 }
 
 .navbar h1{
     padding: 10px;
     margin-left: 30px;
-    font-size: 20px;
+    font-size: 2rem;
 }
 
 .option{
-    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-a{
+.option a{
     padding: 10px;
-    margin: 0 15px 0 15px;
+    margin: 15px;
+    transition: 0.5s;
+}
+
+.hamburger{
+    display: none;
+    cursor: pointer;
+    width: 100px;
+    height: auto;
+    margin: 10px;
+}
+
+.bar{
+    display: block;
+    width: 35px;
+    height: 3px;
+    margin: 10px auto;
+    background-color: white;
+    -webkit-transition: all 0.3s ease-in-out;
 }
 
 .container{
-    margin: 78px 0 0 0;
+    margin: 50px 0 0 0;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -139,8 +255,8 @@ a{
 }
 
 .home img{
-    width: 500px;
-    height: 500px;
+    width: 50%;
+    height: 50%;
     margin: 50px;
     transform: rotate(-15deg);
 }
@@ -150,6 +266,8 @@ a{
     padding:50px;
     text-align: center;
     font-size: 20px;
+    min-height: 98vh;
+    box-sizing: border-box;
 }
 
 .content h1{
@@ -174,7 +292,6 @@ a:hover{
 .wrapper{
     background-color: #06283D;
     width: 40%;
-    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -185,8 +302,9 @@ a:hover{
     color: white;
     box-sizing: border-box;
     text-align: center;
-    min-width: 400px;
+    min-width: 300px;
     box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.49);
+    margin: 20px;
 }
 
 input, select{
@@ -225,18 +343,43 @@ input[type="submit"]{
     width: 40%;
     min-height: 200px;
     border: 2px solid black;
-    padding: 20px;
     margin: 20px;
     border-radius: 5px;
     min-width: 300px;
-    display: flex;
+    display: block;
     flex-direction: column;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
     box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.49);
-    max-height: 538px;
-    overflow: auto;
+    max-height: 438px;
+    overflow:auto;
+}
+
+.total{
+    background-color: #06283D;
+    position: sticky;
+    bottom: 0px;
+    color: white;
+    font-size: 20px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.total h2{
+    margin: 0px 10px;
+}
+
+.title{
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 30px;
+    padding: 20px;
+    background-color: #06283D;
 }
 
 .select { 
@@ -260,7 +403,7 @@ input[type="submit"]{
     background-color: white;
     width: 85%;
     border-radius: 10px;
-    margin: 10px;
+    margin: 20px auto;
     color: #000;
     display: flex;
     justify-content: space-between;
@@ -277,14 +420,17 @@ input[type="submit"]{
 .tools li{
     display: inline-block;
     margin: 10px 5px;
-    width: auto;
+    width: 45px;
     height: 30px;
     background-color: peru;
     border-radius: 5px;
     cursor: pointer;
     padding: 5px;
+    color : #fff;
+    text-align: center;
 }
-#del{
+
+.tools li.del{
     background-color: rgba(255, 5, 5, 0.945);
 }
 
@@ -292,10 +438,94 @@ input[type="submit"]{
     background-color: rgb(224, 167, 110);
 }
 
-#del:hover{
+li.del:hover{
     background-color: rgba(255, 68, 68, 0.839);
 }
 
 .data{
     text-align: left;
+}
+
+.overlay{
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    position: fixed;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+}
+
+.modal{
+    min-width: 500px;
+    padding: 10px;
+    min-height: 150px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+    background-color: white;
+    border-radius: 10px;
+    z-index: 100;
+    text-align: center;
+}
+
+.modal.update{
+    min-width: 500px;
+    min-height: 150px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+    background-color: white;
+    border-radius: 10px;
+    z-index: 100;
+    text-align: left;
+}
+
+.modal h2{
+    margin-top: 10px;
+}
+
+.modal button{
+    margin: 20px;
+    width: auto;
+    background-color: peru;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    color : #fff;
+    text-align: center;
+    border: 0px;
+}
+
+.modal-btn{
+    display: flex;
+    justify-content: space-around;
+}
+
+#updateForm{
+    margin: 20px 20px 0px 20px;
+}
+
+#updateForm input, #updateForm select{
+    border: 1px solid black;
+    color: black;
+}
+
+#confirm{
+    background-color: #256D85;
+}
+
+#cancel{
+    background-color: #8d8d8d;
+}
+
+.hidden{
+    display: none;
 }
